@@ -49,7 +49,8 @@ function App() {
   return (
     <div>
       <Header />
-      <Pizza />
+      <Menu />
+      <Footer />
     </div>
   );
 }
@@ -64,17 +65,32 @@ function Pizza() {
   );
 }
 
-function Header() { 
-  return <div>
-    <h1>Savory React Pizza Co.</h1>
-  </div>
+function Header() {
+  return (
+    <div>
+      <h1>Savory React Pizza Co.</h1>
+    </div>
+  );
 }
 
 const Menu = () => {
-  
-}
+  return (
+    <div>
+      <h2>Our Menu:</h2>
+      <Pizza />
+      <Pizza />
+      <Pizza />
+    </div>
+  );
+};
 
-function Footer(){}
+function Footer() {
+  return (
+    <div>
+      <footer>{new Date().toLocaleTimeString()} We are currently open.</footer>
+    </div>
+  );
+}
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
