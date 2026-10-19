@@ -1,5 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import "./index.css";
+
 const pizzaData = [
   {
     name: "Focaccia",
@@ -47,7 +49,7 @@ const pizzaData = [
 
 function App() {
   return (
-    <div>
+    <div className="container">
       <Header />
       <Menu />
       <Footer />
@@ -55,45 +57,65 @@ function App() {
   );
 }
 
-function Pizza() {
-  return (
-    <div>
-      <img src="pizzas/funghi.jpg" alt="funghi pizza image." />
-      <h2>Pizza Funghii</h2>
-      <p>Tomato, mozarella, mushrooms, and onion</p>
-    </div>
-  );
-}
-
 function Header() {
   return (
-    <div>
-      <h1>Savory React Pizza Co.</h1>
-    </div>
+    <header className="header">
+      <h1>Fast React Pizza Co.</h1>
+    </header>
   );
 }
 
 const Menu = () => {
   return (
-    <div>
+    <main className="menu">
       <h2>Our Menu:</h2>
-      <Pizza />
-      <Pizza />
-      <Pizza />
-    </div>
+      <Pizza
+        name="Pizza Prosciutto"
+        ingredients="Tomato, mozarella, ham, aragula, and burrata cheese"
+        photoName="pizzas/prosciutto.jpg"
+        price={18}
+        soldOut="true"
+      />
+      <Pizza
+        ingredients="Tomato, mozarella, and pepperoni"
+        name="Pizza Salamino"
+        photoName="pizzas/salamino.jpg"
+        price={15}
+      />
+      <Pizza
+        photoName="pizzas/funghi.jpg"
+        price={12}
+        name="Pizza Funghi"
+        ingredients="Tomato, mozarella, mushrooms, and onion"
+      />
+    </main>
   );
 };
+
+function Pizza(props) {
+  return (
+    <div className="pizza">
+      <img src={props.photoName} alt={props.name} />
+      <div>
+        <h3>{props.name}</h3>
+        <p>{props.ingredients}</p>
+        <span>{props.price + 5}</span>
+      </div>
+    </div>
+  );
+}
 
 function Footer() {
   const hour = new Date().getHours();
   const openHour = 11;
   const closeHour = 22;
   let alrt = "";
-  if (hour >= openHour && hour <= closeHour) alrt = "We are currently open."; else alrt = "We are closed."
-  
+  if (hour >= openHour && hour <= closeHour) alrt = "We are currently open.";
+  else alrt = "We are closed.";
+
   return (
     <div>
-      <footer>{new Date().toLocaleTimeString()}</footer>
+      <footer className="footer ">{new Date().toLocaleTimeString()}</footer>
       <p>{alrt}</p>
     </div>
   );
