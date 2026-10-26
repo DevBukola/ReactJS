@@ -72,46 +72,39 @@ const Menu = () => {
   return (
     <main className="menu">
       <h2>Our Menu</h2>
-      {/* {pizzaData.map(pizza => <Pizza name={pizza.name} ingredients={pizza.ingredients} photoName={pizza.photoName} price={pizza.price} soldOut={pizza.soldOut} />)} */}
-      {lenPizzas > 0 && (
-        <ul className="pizzas">
-          {pizzas.map((pizza) => (
-            <Pizza pizzaObj={pizza} key={pizza.name} />
-          ))}
-        </ul>
-      )}
 
-      {/* <Pizza
-        name="Pizza Prosciutto"
-        ingredients="Tomato, mozarella, ham, aragula, and burrata cheese"
-        photoName="pizzas/prosciutto.jpg"
-        price={18}
-        soldOut="true"
-      />
-      <Pizza
-        ingredients="Tomato, mozarella, and pepperoni"
-        name="Pizza Salamino"
-        photoName="pizzas/salamino.jpg"
-        price={15}
-      />
-      <Pizza
-        photoName="pizzas/funghi.jpg"
-        price={12}
-        name="Pizza Funghi"
-        ingredients="Tomato, mozarella, mushrooms, and onion"
-      /> */}
+      {lenPizzas > 0 ? (
+        <>
+          {/* React fragment allow us to render two or more elements separately in the same
+          place without wrapping them in one element (like wrapping them in a
+          div, which may affect the formatting) as the parent of them. Here, it makes the paragraph and the ul separate - not wrapped in anything. */}
+          <p>
+            Authentic Italian cuisine. 6 creative dishes to choose from. All
+            from our stone oven, all organic, all delicious.
+          </p>
+          <ul className="pizzas">
+            {pizzas.map((pizza) => (
+              <Pizza pizzaObj={pizza} key={pizza.name} />
+            ))}
+          </ul>
+        </>
+      ) : (
+        <p>We are still working on our menu. Please check back later :)</p>
+      )}
     </main>
   );
 };
 
-function Pizza(props) {
+function Pizza({ pizzaObj }) {
+  // if (pizzaObj.soldOut) return null;
+
   return (
-    <li className="pizza">
-      <img src={props.pizzaObj.photoName} alt={props.pizzaObj.name} />
+    <li className={`pizza ${pizzaObj.soldOut ? "sold-out" : ""}`}>
+      <img src={pizzaObj.photoName} alt={pizzaObj.name} />
       <div>
-        <h3>{props.pizzaObj.name}</h3>
-        <p>{props.pizzaObj.ingredients}</p>
-        <span>{props.pizzaObj.price + 5}</span>
+        <h3>{pizzaObj.name}</h3>
+        <p>{pizzaObj.ingredients}</p>
+        <span>{pizzaObj.soldOut ? "SOLD OUT" : pizzaObj.price}</span>
       </div>
     </li>
   );
@@ -122,26 +115,33 @@ function Footer() {
   const openHour = 11;
   const closeHour = 22;
   let isOpen = hour >= openHour && hour <= closeHour;
-  let alrt = "";
-  if (hour >= openHour && hour <= closeHour) alrt = `We are currently open.}.`;
-  else alrt = "We are closed.";
 
   return (
     <div>
       <footer className="footer ">
-        {isOpen && (
-          <div className="order">
-            <p>
-              We are open until {closeHour}:00. Come visit us or order online.
-            </p>
-            <button className="order-btn">Order now</button>
-          </div>
+        {isOpen ? (
+          <Order closeHour={closeHour} openHour={openHour} />
+        ) : (
+          <p>
+            We are happy to welcome you between {openHour}:00 and {closeHour}:00
+          </p>
         )}
       </footer>
     </div>
   );
 }
 
+function Order({ closeHour, openHour }) {
+  return (
+    <div className="order">
+      <p>
+        We are open from {openHour}:00 to {closeHour}:00. Come visit us or order
+        online.
+      </p>
+      <button className="order-btn">Order now</button>
+    </div>
+  );
+}
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>

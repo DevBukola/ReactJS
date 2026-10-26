@@ -103,6 +103,7 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4.8rem;
+  margin-top: 1.5rem;
 }
 
 .pizza {
@@ -148,7 +149,7 @@ body {
 
 .pizza.sold-out img {
   filter: grayscale();
-  opacity: 0.8;
+  opacity: 0.7;
 }
 
 /* *************** */
